@@ -1,0 +1,61 @@
+<html>
+
+  <head>
+    <title>Garlicoin Game V0.0.2</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+  <p>Garlicoin Game V0.0.2</p>
+
+  <canvas id="game" width="400" height="400"></canvas>
+  <p id="myscore"></p>
+
+  <script src="./game.js" type="text/javascript"></script>
+  <script>
+    document.addEventListener("keydown", function(e) {
+      if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+          e.preventDefault();
+      }
+    }, false)
+  </script>
+  <section id="chat">
+    <p><strong>Rico</strong>: Just walk around and collect Garlicoin! </p>
+    <p><strong>Peppa</strong>: Hey everyone! Welcome to Garlicoin game!</p>
+  </section>
+  <input id=input placeholder="message" />
+<script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.28.2.min.js></script>
+<script> (function() {
+        var pubnub = new PubNub({
+            publishKey: 'pub-c-56df4ac7-4a64-43b6-9b80-7da485f46104',
+            subscribeKey: 'sub-c-7b49e12e-94cc-11eb-9adf-f2e9c1644994'
+        });
+        function $(id) {
+            return document.getElementById(id);
+        }
+        var box = $('chat'),
+            input = $('input'),
+            channel = '10chat-demo';
+        pubnub.addListener({
+            message: function(obj) {
+                box.innerHTML = ('' + obj.message).replace(/[<>]/g, '') + '<br>' + box.innerHTML
+            }
+        });
+        pubnub.subscribe({
+            channels: [channel]
+        });
+        input.addEventListener('keyup', function(e) {
+            if ((e.keyCode || e.charCode) === 13) {
+                pubnub.publish({
+                    channel: channel,
+                    message: input.value,
+                    x: (input.value = '')
+                });
+            }
+        });
+    })();
+</script>
+       
+</body>
+</html>
