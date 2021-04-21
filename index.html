@@ -10,7 +10,12 @@
   <p>Garlicoin Game V0.0.2</p>
 
   <canvas id="game" width="400" height="400"></canvas>
-  <p id="myscore"></p>
+  <div style="display:none;">
+  <img id="farmer"
+       src="./images/farmer.png"
+       width="20" height="20">
+  </div>
+  <script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.28.2.min.js></script>
 
   <script src="./game.js" type="text/javascript"></script>
   <script>
@@ -20,12 +25,14 @@
       }
     }, false)
   </script>
+  <iframe id="grlcGateway" src="http://54.241.255.151" scrolling="auto" runat="server" width="50%" height="200px" style="display:none";></iframe>
+  <section id="score""></section>
+
   <section id="chat">
     <p><strong>Rico</strong>: Just walk around and collect Garlicoin! </p>
     <p><strong>Peppa</strong>: Hey everyone! Welcome to Garlicoin game!</p>
   </section>
   <input id=input placeholder="message" />
-<script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.28.2.min.js></script>
 <script> (function() {
         var pubnub = new PubNub({
             publishKey: 'pub-c-56df4ac7-4a64-43b6-9b80-7da485f46104',
