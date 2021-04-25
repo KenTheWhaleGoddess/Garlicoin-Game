@@ -94,8 +94,8 @@ Game.prototype._move = function() {
 
   if (this.position.x === this.foodPosition.x && this.position.y === this.foodPosition.y) {
     this.score++;
-    document.getElementById("score").innerHTML = "Garlicoin - " + this.score;
-    if (this.score >= 5) {
+    document.getElementById("score").innerHTML = "Garlicoin - " + this.score + " / 20";
+    if (this.score >= 20) {
       document.getElementById("grlcGateway").style.display = 'block';
       this.score = 0;
     }
@@ -106,16 +106,18 @@ Game.prototype._move = function() {
 Game.prototype._draw = function() {
   this.context.clearRect(0, 0, this.boardSize * this.tileSize, this.boardSize * this.tileSize);
 
-  this.context.fillStyle = "rgb(100, 255, 10)";
-  this.context.fillRect(0, 0, this.boardSize * this.tileSize, this.boardSize * this.tileSize);
+  const grass = document.getElementById('grass');
+  
+  this.context.drawImage(grass, 0, 0, this.boardSize * this.tileSize, this.boardSize * this.tileSize);
 
-  const image = document.getElementById('farmer');
+  const farmer = document.getElementById('farmer');
   this.segments.forEach(function(pos) {
-    this.context.drawImage(image, pos.x * this.tileSize, pos.y * this.tileSize, this.tileSize, this.tileSize);
+    this.context.drawImage(farmer, pos.x * this.tileSize, pos.y * this.tileSize, this.tileSize, this.tileSize);
   }.bind(this));
 
-  this.context.fillStyle = "rgb(0, 0, 0)";
-  this.context.fillRect(this.foodPosition.x * this.tileSize, this.foodPosition.y * this.tileSize, this.tileSize, this.tileSize);
+  const garlicoin = document.getElementById('garlicoin');
+  
+  this.context.drawImage(garlicoin, this.foodPosition.x * this.tileSize, this.foodPosition.y * this.tileSize, this.tileSize, this.tileSize);
 
 };
 
